@@ -4,12 +4,50 @@ import com.andrewpetrowski.diploma.bridgelib.Models.DHT11_Data;
 import com.pi4j.wiringpi.Gpio;
 import com.pi4j.wiringpi.GpioUtil;
 
+/**
+ *
+ */
 public class DHT11 {
     private static final int    MAXTIMINGS  = 85;
     private final int[]         dht11_dat   = { 0, 0, 0, 0, 0 };
 
-    public native DHT11_Data GetDhtData(int i);
+    /**
+     *
+     * @param pin
+     * @return
+     */
+    public native DHT11_Data GetDhtData(int pin);
 
+    public native float[] readData(int pin);
+
+
+    public float[] readData() {
+        float[] data = this.readData(7);
+        int stopCounter = 0;
+        while (!isValid(data)) {
+            stopCounter++;
+            if (stopCounter > 10) {
+               // throw new RuntimeException("Sensor return invalid data 10 times:" + data[0] + ", " + data[1]);
+            }
+            data = this.readData(7);
+        }
+        return data;
+    }
+
+    private boolean isValid(float[] data) {
+        return data[0] > 0 && data[0] < 100 && data[1] > 0 && data[1] < 100;
+    }
+
+    /**
+     *
+     */
+    static {
+        System.loadLibrary("dhtdata");
+    }
+
+    /**
+     *
+     */
     public DHT11() {
 
         // setup wiringPi
@@ -22,20 +60,26 @@ public class DHT11 {
       //  GpioUtil.export(7, GpioUtil.DIRECTION_OUT);
     }
 
+    /**
+     *
+     * @param pin
+     */
     public void getTemperature(final int pin) {
         int laststate = Gpio.HIGH;
-        int j = 0;
+
+        int j = 0,i;
         dht11_dat[0] = dht11_dat[1] = dht11_dat[2] = dht11_dat[3] = dht11_dat[4] = 0;
 
         Gpio.pinMode(pin, Gpio.OUTPUT);
         Gpio.digitalWrite(pin, Gpio.LOW);
-        Gpio.delay(18);
+        Gpio.delay(20);
 
         Gpio.digitalWrite(pin, Gpio.HIGH);
-        Gpio.delay(40);
+        Gpio.delayMicroseconds(40);
         Gpio.pinMode(pin, Gpio.INPUT);
 
-        for (int i = 0; i < MAXTIMINGS; i++) {
+        Gpio.delayMicroseconds(10);
+        for (i = 0; i < MAXTIMINGS; i++) {
             int counter = 0;
             while (Gpio.digitalRead(pin) == laststate) {
                 counter++;
@@ -55,7 +99,7 @@ public class DHT11 {
             if ((i >= 4) && (i % 2 == 0)) {
                 /* shove each bit into the storage bytes */
                 dht11_dat[j / 8] <<= 1;
-                if (counter > 16) {
+                if (counter > 50) {
                     dht11_dat[j / 8] |= 1;
                 }
                 j++;
@@ -83,20 +127,11 @@ public class DHT11 {
 
     }
 
+    /**
+     *
+     * @return
+     */
     private boolean checkParity() {
         return dht11_dat[4] == (dht11_dat[0] + dht11_dat[1] + dht11_dat[2] + dht11_dat[3] & 0xFF);
-    }
-
-    public static void main(final String ars[]) throws Exception {
-
-        final DHT11 dht = new DHT11();
-
-        for (int i = 0; i < 10; i++) {
-            Thread.sleep(2000);
-            dht.getTemperature(21);
-        }
-
-        System.out.println("Done!!");
-
     }
 }

@@ -9,15 +9,45 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Class, which collect DHT11 data and send them to server
+ * @author Andrew Petrowsky
+ * @version 1.0
+ */
 public class DHTRunner implements IEntityRunner<DhtController> {
 
-    ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
-    DHT11 dht = new DHT11();
-    DhtController dhtController;
+    private ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
+    private DHT11 dht = new DHT11();
+    private DhtController dhtController;
+    /**
+     * Callback for event handling {@link IDHTCallback}
+     */
     IDHTCallback callback;
 
+    /**
+     * GPIO pin number for listening
+     */
     int pin=7;
 
+    /**
+     * Sets pin number
+     * @param pin pin number
+     */
+    public void setPin(int pin) {
+        this.pin = pin;
+    }
+
+    /**
+     * Gets pin number
+     * @return pin number
+     */
+    public int getPin() {
+        return pin;
+    }
+
+    /**
+     * Get DHT11 data once
+     */
     @Override
     public void Run() {
 
@@ -42,12 +72,20 @@ public class DHTRunner implements IEntityRunner<DhtController> {
       // System.out.println("fasd");
     }
 
+    /**
+     * Start background worker
+     */
     @Override
     public void TimerRunner() {
         ses.scheduleAtFixedRate(this::Run,
                 0,interval, TimeUnit.SECONDS);
     }
 
+    /**
+     *  Create class instance
+     * @param time  Check period (in seconds)
+     * @param idhtCallback Class, which implement interface (always this)
+     */
     public DHTRunner(int time, IDHTCallback idhtCallback) {
         dhtController = new DhtController();
         callback = idhtCallback;
@@ -55,11 +93,17 @@ public class DHTRunner implements IEntityRunner<DhtController> {
         this.TimerRunner();
     }
 
+    /**
+     * Create class instance
+     */
     public DHTRunner() {
         this.TimerRunner();
     }
 
 
+    /**
+     * Update interval
+     */
     public int interval = 3600;
 
 }

@@ -5,42 +5,32 @@ import com.pi4j.wiringpi.Gpio;
 import com.pi4j.wiringpi.GpioUtil;
 
 /**
- *
+ * Gets DHT11 sensors data
+ * @author Andrew Petrowsky
+ * @version 0.8
  */
 public class DHT11 {
     private static final int    MAXTIMINGS  = 85;
     private final int[]         dht11_dat   = { 0, 0, 0, 0, 0 };
 
     /**
-     *
-     * @param pin
-     * @return
+     *  (Native) Get sensor data as {@link DHT11_Data} object
+     * @param pin pin number
+     * @return DHT11 data
      */
     public native DHT11_Data GetDhtData(int pin);
 
+    /**
+     * (Native) Get sensor data
+     * @param pin Pin number
+     * @return Float array, wich contains two elements <br/>
+     *  0 - temperature <br/>
+     *  1 - humidity
+     */
     public native float[] readData(int pin);
 
 
-    public float[] readData() {
-        float[] data = this.readData(7);
-        int stopCounter = 0;
-        while (!isValid(data)) {
-            stopCounter++;
-            if (stopCounter > 10) {
-               // throw new RuntimeException("Sensor return invalid data 10 times:" + data[0] + ", " + data[1]);
-            }
-            data = this.readData(7);
-        }
-        return data;
-    }
 
-    private boolean isValid(float[] data) {
-        return data[0] > 0 && data[0] < 100 && data[1] > 0 && data[1] < 100;
-    }
-
-    /**
-     *
-     */
     static {
         System.loadLibrary("dhtdata");
     }
@@ -57,14 +47,18 @@ public class DHT11 {
         }
 
 
+
       //  GpioUtil.export(7, GpioUtil.DIRECTION_OUT);
     }
 
     /**
-     *
-     * @param pin
+     * Get sensor data
+     * @deprecated This method is much slower, then native JNI method.
+     * And not recommend for using.
+     * @param pin pin number
      */
-    public void getTemperature(final int pin) {
+    @Deprecated
+    public Float[] getData(final int pin) {
         int laststate = Gpio.HIGH;
 
         int j = 0,i;
@@ -120,16 +114,21 @@ public class DHT11 {
                 c = -c;
             }
             final float f = c * 1.8f + 32;
-            System.out.println("Humidity = " + h + " Temperature = " + c + "(" + f + "f)");
+            Float[] data = new Float[2];
+            data[0] = c;
+            data[1]=h;
+            return data;
+            //System.out.println("Humidity = " + h + " Temperature = " + c + "(" + f + "f)");
         } else {
-            System.out.println("Data not good, skip");
+            return new Float[2];
+            //System.out.println("Data not good, skip");
         }
 
     }
 
     /**
-     *
-     * @return
+     * Check for data validity
+     * @return  Validity result
      */
     private boolean checkParity() {
         return dht11_dat[4] == (dht11_dat[0] + dht11_dat[1] + dht11_dat[2] + dht11_dat[3] & 0xFF);

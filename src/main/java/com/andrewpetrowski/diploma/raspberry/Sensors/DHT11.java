@@ -36,7 +36,7 @@ public class DHT11 {
     }
 
     /**
-     *
+     * Initialize wiring library
      */
     public DHT11() {
 

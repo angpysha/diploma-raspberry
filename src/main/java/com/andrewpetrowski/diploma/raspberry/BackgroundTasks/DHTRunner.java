@@ -2,8 +2,11 @@ package com.andrewpetrowski.diploma.raspberry.BackgroundTasks;
 
 import com.andrewpetrowski.diploma.bridgelib.Controllers.DhtController;
 import com.andrewpetrowski.diploma.bridgelib.Models.DHT11_Data;
+import com.andrewpetrowski.diploma.raspberry.DelayRun.DhtDelayRunner;
 import com.andrewpetrowski.diploma.raspberry.Sensors.DHT11;
+import com.google.gson.reflect.TypeToken;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -19,6 +22,7 @@ public class DHTRunner implements IEntityRunner<DhtController> {
     private ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
     private DHT11 dht = new DHT11();
     private DhtController dhtController;
+    private DhtDelayRunner delayRunner;
     /**
      * Callback for event handling {@link IDHTCallback}
      */
@@ -58,13 +62,28 @@ public class DHTRunner implements IEntityRunner<DhtController> {
         boolean result = false;
         try {
             result = dhtController.AddAsync(sensorData).get();
+//            if (!result){
+//                delayRunner.AppendNew(sensorData,(new TypeToken<List<DHT11_Data>>(){}).getType());
+//                if (!delayRunner.getRunning())
+//                    delayRunner.execute();
+//            }
+            append(sensorData,result);
+
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            result =false;
+            append(sensorData,result);
+            //   e.printStackTrace();
         } catch (ExecutionException e) {
-            e.printStackTrace();
+            result=false;
+            append(sensorData,result);
+            //  e.printStackTrace();
         } catch (Exception ex)
         {
-            ex.printStackTrace();
+            result = false;
+            append(sensorData,result);
+            //   ex.printStackTrace();
+        } finally {
+
         }
 
       //  if (result)
@@ -81,6 +100,7 @@ public class DHTRunner implements IEntityRunner<DhtController> {
                 0,interval, TimeUnit.SECONDS);
     }
 
+
     /**
      *  Create class instance
      * @param time  Check period (in seconds)
@@ -91,6 +111,7 @@ public class DHTRunner implements IEntityRunner<DhtController> {
         callback = idhtCallback;
         this.interval = time;
         this.TimerRunner();
+        delayRunner = DhtDelayRunner.getInstance(60*15);
     }
 
     /**
@@ -106,4 +127,11 @@ public class DHTRunner implements IEntityRunner<DhtController> {
      */
     public int interval = 3600;
 
+    private void append(DHT11_Data data,Boolean result) {
+        if (!result){
+            delayRunner.AppendNew(data,(new TypeToken<List<DHT11_Data>>(){}).getType());
+            if (!delayRunner.getRunning())
+                delayRunner.execute();
+        }
+    }
 }

@@ -1,3 +1,4 @@
 src/main/jni/
 build/
 out/
+.gradle/

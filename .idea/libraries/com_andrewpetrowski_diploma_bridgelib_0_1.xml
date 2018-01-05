@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="com.andrewpetrowski.diploma.bridgelib-0.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../com.andrewpetrowski.diploma.bridgelib/build/libs/com.andrewpetrowski.diploma.bridgelib-0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="https://angpysha.github.io/diploma_bridge/" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>

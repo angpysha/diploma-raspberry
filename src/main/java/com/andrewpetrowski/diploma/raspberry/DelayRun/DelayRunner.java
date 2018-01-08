@@ -13,7 +13,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 public abstract class DelayRunner<T extends Entity> {
-    protected ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
     protected int delay;
     protected String filepath;
     protected List<T> data;
@@ -71,9 +70,7 @@ public abstract class DelayRunner<T extends Entity> {
         }
     }
 
-
-
-
-
-
+    public List<T> getData() {
+        return data;
+    }
 }

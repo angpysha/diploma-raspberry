@@ -22,14 +22,14 @@ jar {
 }
 
 dependencies {
-   // compile fileTree(dir: 'libs',include: ['**/*.so'])
+    compile fileTree(dir: 'libs',include: ['**/*.jar'])
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile group: 'com.pi4j', name: 'pi4j-core', version: '1.1'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
     compile 'com.google.code.gson:gson:2.8.1'
     compile group: 'com.mashape.unirest', name: 'unirest-java', version: '1.4.9'
     compile group: 'com.pi4j', name: 'pi4j-gpio-extension', version: '1.1'
-    compile files('D:\\IdeaProjects\\com.andrewpetrowski.diploma.bridgelib\\build\\libs\\com.andrewpetrowski.diploma.bridgelib-0.3.jar')
+   // compile files('D:\\IdeaProjects\\com.andrewpetrowski.diploma.bridgelib\\build\\libs\\com.andrewpetrowski.diploma.bridgelib-0.3.jar')
    // compile files('D:\\IdeaProjects\\com.andrewpetrowski.diploma.raspberry\\src\\main\\jni\\libdhtdata.so')
    // runtime files()
    // compile files('/media/andrey/946A7DDB6A7DBA96/IdeaProjects/com.andrewpetrowski.diploma.bridgelib/build/libs/com.andrewpetrowski.diploma.bridgelib-0.1.jar')

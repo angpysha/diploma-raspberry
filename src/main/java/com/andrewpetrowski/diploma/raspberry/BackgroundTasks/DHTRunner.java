@@ -128,6 +128,7 @@ public class DHTRunner implements IEntityRunner<DhtController> {
     public int interval = 3600;
 
     private void append(DHT11_Data data,Boolean result) {
+        System.out.println(String.format("Result: %s",result.toString()));
         if (!result){
             delayRunner.AppendNew(data,(new TypeToken<List<DHT11_Data>>(){}).getType());
             if (!delayRunner.getRunning())

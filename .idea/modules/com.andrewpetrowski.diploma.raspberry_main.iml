@@ -12,7 +12,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../com.andrewpetrowski.diploma.bridgelib/build/libs/com.andrewpetrowski.diploma.bridgelib-0.3.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../libs/com.andrewpetrowski.diploma.bridgelib-0.3.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

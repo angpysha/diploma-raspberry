@@ -2,15 +2,11 @@ package com.andrewpetrowski.diploma.raspberry.DelayRun;
 
 import com.andrewpetrowski.diploma.bridgelib.Helpers.EntitySerializer;
 import com.andrewpetrowski.diploma.bridgelib.Models.Entity;
-import com.andrewpetrowski.diploma.raspberry.BackgroundTasks.IEntityRunner;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.File;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 
 public abstract class DelayRunner<T extends Entity> {
     protected int delay;

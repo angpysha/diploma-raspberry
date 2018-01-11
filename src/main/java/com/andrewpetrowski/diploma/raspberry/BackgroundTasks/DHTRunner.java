@@ -62,26 +62,21 @@ public class DHTRunner implements IEntityRunner<DhtController> {
         boolean result = false;
         try {
             result = dhtController.AddAsync(sensorData).get();
-//            if (!result){
-//                delayRunner.AppendNew(sensorData,(new TypeToken<List<DHT11_Data>>(){}).getType());
-//                if (!delayRunner.getRunning())
-//                    delayRunner.execute();
-//            }
             append(sensorData,result);
 
         } catch (InterruptedException e) {
             result =false;
             append(sensorData,result);
-            //   e.printStackTrace();
+           //    e.printStackTrace();
         } catch (ExecutionException e) {
-            result=false;
+           // result=false;
             append(sensorData,result);
-            //  e.printStackTrace();
+          //    e.printStackTrace();
         } catch (Exception ex)
         {
             result = false;
             append(sensorData,result);
-            //   ex.printStackTrace();
+          //     ex.printStackTrace();
         } finally {
 
         }

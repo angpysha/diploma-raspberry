@@ -36,7 +36,6 @@ public class DhtDelayRunner extends DelayRunner<DHT11_Data> implements IDelayRun
 
     @Override
     public Boolean Send() {
-        System.out.println("Delay running");
         try {
             DhtController controller = new DhtController();
             Boolean  result;

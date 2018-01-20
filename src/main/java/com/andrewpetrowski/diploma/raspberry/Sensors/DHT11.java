@@ -32,7 +32,7 @@ public class DHT11 {
 
 
     static {
-        System.loadLibrary("dhtdata");
+        System.loadLibrary("raspiinfo");
     }
 
     /**

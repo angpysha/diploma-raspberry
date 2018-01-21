@@ -4,6 +4,8 @@
     <bytecodeTargetLevel>
       <module name="com.andrewpetrowski.diploma.raspberry_main" target="1.8" />
       <module name="com.andrewpetrowski.diploma.raspberry_test" target="1.8" />
+      <module name="io.github.angpysha.diploma_raspberry_main" target="1.8" />
+      <module name="io.github.angpysha.diploma_raspberry_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

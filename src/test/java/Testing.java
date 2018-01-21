@@ -1,6 +1,3 @@
-import com.andrewpetrowski.diploma.raspberry.BackgroundTasks.DHTRunner;
-import com.andrewpetrowski.diploma.raspberry.Sensors.DHT11;
-import org.junit.Assert;
 import org.junit.Test;
 
 public class Testing {

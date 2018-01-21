@@ -1,6 +1,6 @@
-package com.andrewpetrowski.diploma.raspberry.BackgroundTasks;
+package io.github.angpysha.diploma_raspberry.BackgroundTasks;
 
-import com.andrewpetrowski.diploma.bridgelib.Controllers.BaseController;
+import io.github.angpysha.diploma_bridge.Controllers.BaseController;
 
 /**
  * This interface provides all methods declarations, which needed to

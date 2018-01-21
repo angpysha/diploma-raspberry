@@ -1,6 +1,6 @@
-package com.andrewpetrowski.diploma.raspberry.Sensors;
+package io.github.angpysha.diploma_raspberry.Sensors;
 
-import com.andrewpetrowski.diploma.bridgelib.Models.Bmp180_Data;
+import io.github.angpysha.diploma_bridge.Models.Bmp180_Data;
 
 public class BMP180 {
 

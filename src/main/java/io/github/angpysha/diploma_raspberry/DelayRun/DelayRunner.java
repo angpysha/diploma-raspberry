@@ -1,7 +1,7 @@
-package com.andrewpetrowski.diploma.raspberry.DelayRun;
+package io.github.angpysha.diploma_raspberry.DelayRun;
 
-import com.andrewpetrowski.diploma.bridgelib.Helpers.EntitySerializer;
-import com.andrewpetrowski.diploma.bridgelib.Models.Entity;
+import io.github.angpysha.diploma_bridge.Helpers.EntitySerializer;
+import io.github.angpysha.diploma_bridge.Models.Entity;
 
 import java.io.File;
 import java.lang.reflect.Type;

@@ -1,9 +1,9 @@
-package com.andrewpetrowski.diploma.raspberry.BackgroundTasks;
+package io.github.angpysha.diploma_raspberry.BackgroundTasks;
 
-import com.andrewpetrowski.diploma.bridgelib.Controllers.DhtController;
-import com.andrewpetrowski.diploma.bridgelib.Models.DHT11_Data;
-import com.andrewpetrowski.diploma.raspberry.DelayRun.DhtDelayRunner;
-import com.andrewpetrowski.diploma.raspberry.Sensors.DHT11;
+import io.github.angpysha.diploma_bridge.Controllers.DhtController;
+import io.github.angpysha.diploma_bridge.Models.DHT11_Data;
+import io.github.angpysha.diploma_raspberry.DelayRun.DhtDelayRunner;
+import io.github.angpysha.diploma_raspberry.Sensors.DHT11;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.List;

@@ -1,12 +1,9 @@
-package com.andrewpetrowski.diploma.raspberry.BackgroundTasks;
+package io.github.angpysha.diploma_raspberry.BackgroundTasks;
 
-import com.andrewpetrowski.diploma.bridgelib.Controllers.BmpController;
-import com.andrewpetrowski.diploma.bridgelib.Controllers.DhtController;
-import com.andrewpetrowski.diploma.bridgelib.Models.Bmp180_Data;
-import com.andrewpetrowski.diploma.bridgelib.Models.DHT11_Data;
-import com.andrewpetrowski.diploma.raspberry.DelayRun.BmpDelayRunner;
-import com.andrewpetrowski.diploma.raspberry.Sensors.BMP180;
-import com.andrewpetrowski.diploma.raspberry.Sensors.DHT11;
+import io.github.angpysha.diploma_bridge.Controllers.BmpController;
+import io.github.angpysha.diploma_bridge.Models.Bmp180_Data;
+import io.github.angpysha.diploma_raspberry.DelayRun.BmpDelayRunner;
+import io.github.angpysha.diploma_raspberry.Sensors.BMP180;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.List;

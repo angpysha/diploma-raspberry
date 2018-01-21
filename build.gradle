@@ -1,4 +1,4 @@
-version '0.2'
+version '0.3'
 
 apply plugin: 'java'
 
@@ -23,7 +23,7 @@ jar {
     manifest {
         attributes 'Implementation-Title': 'RaspiInfo',
                 'Implementation-Version': version,
-                'Main-Class': 'com.andrewpetrowski.diploma.raspberry.MainClass'
+                'Main-Class': 'io.github.angpysha.diploma_raspberry.MainClass'
     }
 }
 

@@ -1,4 +1,4 @@
 /**
  * Gets DHT11 data
  */
-package com.andrewpetrowski.diploma.raspberry.Sensors;
+package io.github.angpysha.diploma_raspberry.Sensors;

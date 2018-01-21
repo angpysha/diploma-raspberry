@@ -1,8 +1,9 @@
-package com.andrewpetrowski.diploma.raspberry.DelayRun;
+package io.github.angpysha.diploma_raspberry.DelayRun;
 
-import com.andrewpetrowski.diploma.bridgelib.Controllers.DhtController;
-import com.andrewpetrowski.diploma.bridgelib.Models.DHT11_Data;
+
 import com.google.gson.reflect.TypeToken;
+import io.github.angpysha.diploma_bridge.Controllers.DhtController;
+import io.github.angpysha.diploma_bridge.Models.DHT11_Data;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;

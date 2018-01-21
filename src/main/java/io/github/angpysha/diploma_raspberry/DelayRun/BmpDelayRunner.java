@@ -1,11 +1,9 @@
-package com.andrewpetrowski.diploma.raspberry.DelayRun;
+package io.github.angpysha.diploma_raspberry.DelayRun;
 
-import com.andrewpetrowski.diploma.bridgelib.Controllers.BmpController;
-import com.andrewpetrowski.diploma.bridgelib.Models.Bmp180_Data;
-import com.andrewpetrowski.diploma.bridgelib.Models.DHT11_Data;
+import io.github.angpysha.diploma_bridge.Controllers.BmpController;
+import io.github.angpysha.diploma_bridge.Models.Bmp180_Data;
 import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 

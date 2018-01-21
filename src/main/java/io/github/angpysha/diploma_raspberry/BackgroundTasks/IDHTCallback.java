@@ -1,6 +1,6 @@
-package com.andrewpetrowski.diploma.raspberry.BackgroundTasks;
+package io.github.angpysha.diploma_raspberry.BackgroundTasks;
 
-import com.andrewpetrowski.diploma.bridgelib.Models.DHT11_Data;
+import io.github.angpysha.diploma_bridge.Models.DHT11_Data;
 
 /**
  *  Callback for DHT11 sensor

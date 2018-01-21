@@ -1,6 +1,6 @@
-package com.andrewpetrowski.diploma.raspberry.Sensors;
+package io.github.angpysha.diploma_raspberry.Sensors;
 
-import com.andrewpetrowski.diploma.bridgelib.Models.DHT11_Data;
+import io.github.angpysha.diploma_bridge.Models.DHT11_Data;
 import com.pi4j.wiringpi.Gpio;
 import com.pi4j.wiringpi.GpioUtil;
 

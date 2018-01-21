@@ -1,16 +1,13 @@
-package com.andrewpetrowski.diploma.raspberry;
+package io.github.angpysha.diploma_raspberry;
 
-import com.andrewpetrowski.diploma.bridgelib.Models.Bmp180_Data;
-import com.andrewpetrowski.diploma.bridgelib.Models.DHT11_Data;
-import com.andrewpetrowski.diploma.raspberry.BackgroundTasks.BMPRunner;
-import com.andrewpetrowski.diploma.raspberry.BackgroundTasks.DHTRunner;
-import com.andrewpetrowski.diploma.raspberry.BackgroundTasks.IBMPCallback;
-import com.andrewpetrowski.diploma.raspberry.BackgroundTasks.IDHTCallback;
-import com.andrewpetrowski.diploma.raspberry.Sensors.BMP180;
-import com.andrewpetrowski.diploma.raspberry.Sensors.DHT11;
+import io.github.angpysha.diploma_bridge.Models.Bmp180_Data;
+import io.github.angpysha.diploma_bridge.Models.DHT11_Data;
+import io.github.angpysha.diploma_raspberry.BackgroundTasks.BMPRunner;
+import io.github.angpysha.diploma_raspberry.BackgroundTasks.DHTRunner;
+import io.github.angpysha.diploma_raspberry.BackgroundTasks.IBMPCallback;
+import io.github.angpysha.diploma_raspberry.BackgroundTasks.IDHTCallback;
 
 import java.text.SimpleDateFormat;
-import java.util.logging.SimpleFormatter;
 
 /**
  * Main class for program

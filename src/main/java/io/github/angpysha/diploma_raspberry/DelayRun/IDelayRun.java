@@ -1,4 +1,4 @@
-package com.andrewpetrowski.diploma.raspberry.DelayRun;
+package io.github.angpysha.diploma_raspberry.DelayRun;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

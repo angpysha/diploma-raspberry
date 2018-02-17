@@ -5,6 +5,8 @@ import io.github.angpysha.diploma_bridge.Models.DHT11_Data;
 import io.github.angpysha.diploma_raspberry.DelayRun.DhtDelayRunner;
 import io.github.angpysha.diploma_raspberry.Sensors.DHT11;
 import com.google.gson.reflect.TypeToken;
+import io.github.angpysha.diploma_raspberry.Socket.Socket;
+import io.socket.emitter.Emitter;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -23,6 +25,7 @@ public class DHTRunner implements IEntityRunner<DhtController> {
     private DHT11 dht = new DHT11();
     private DhtController dhtController;
     private DhtDelayRunner delayRunner;
+    private Socket socket;
     /**
      * Callback for event handling {@link IDHTCallback}
      */
@@ -82,6 +85,7 @@ public class DHTRunner implements IEntityRunner<DhtController> {
         }
 
       //  if (result)
+        if (callback != null)
            callback.acceptDHT(sensorData);
       // System.out.println("fasd");
     }
@@ -109,11 +113,34 @@ public class DHTRunner implements IEntityRunner<DhtController> {
         delayRunner = DhtDelayRunner.getInstance(60*15);
     }
 
+    public DHTRunner(int time, Socket socket, IDHTCallback idhtCallback) {
+        dhtController = new DhtController();
+        callback = idhtCallback;
+        this.interval = time;
+        this.TimerRunner();
+        this.socket = socket;
+        if (this.socket != null) {
+            socket.socketio.on("changetemperature",ChangeTemperature);
+            socket.socketio.on("changehumidity",ChangeHumidity);
+        }
+        delayRunner = DhtDelayRunner.getInstance(60*15);
+    }
+
+
+    private Emitter.Listener ChangeTemperature = args -> {
+
+    };
+
+    private Emitter.Listener ChangeHumidity = args -> {
+
+    };
     /**
      * Create class instance
      */
-    public DHTRunner() {
-        this.TimerRunner();
+    public DHTRunner(IDHTCallback callback) {
+        this.socket = Socket.getInstanse("https://raspi-info-bot.herokuapp.com/");
+        dhtController = new DhtController();
+        this.callback = callback;
     }
 
 

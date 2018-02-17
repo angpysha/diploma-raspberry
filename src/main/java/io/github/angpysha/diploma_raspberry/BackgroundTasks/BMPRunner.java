@@ -5,6 +5,8 @@ import io.github.angpysha.diploma_bridge.Models.Bmp180_Data;
 import io.github.angpysha.diploma_raspberry.DelayRun.BmpDelayRunner;
 import io.github.angpysha.diploma_raspberry.Sensors.BMP180;
 import com.google.gson.reflect.TypeToken;
+import io.github.angpysha.diploma_raspberry.Socket.Socket;
+import io.socket.emitter.Emitter;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -18,6 +20,7 @@ public class BMPRunner implements IEntityRunner<BmpController> {
     private BMP180 bmp180 = new BMP180();
     private BmpController bmpController;
     private BmpDelayRunner delayRunner;
+    private Socket socket;
 
     public int getInterval() {
         return interval;
@@ -48,8 +51,8 @@ public class BMPRunner implements IEntityRunner<BmpController> {
 //            e.printStackTrace();
             append(bmp180_data, result);
         }
-
-        callback.event(bmp180_data);
+        if (callback != null)
+            callback.event(bmp180_data);
 
     }
 
@@ -67,6 +70,29 @@ public class BMPRunner implements IEntityRunner<BmpController> {
         this.delayRunner = BmpDelayRunner.getInstance(60 * 15);
 
     }
+
+    public BMPRunner(int time, Socket socket, IBMPCallback callback) {
+        bmpController = new BmpController();
+        this.callback = callback;
+        this.interval = time;
+        this.socket = socket;
+        if (socket != null) {
+            socket.socketio.on("changepressure", ChangePressure);
+        }
+        this.TimerRunner();
+        this.delayRunner = BmpDelayRunner.getInstance(60 * 15);
+
+    }
+
+    public BMPRunner(IBMPCallback callback) {
+        bmpController = new BmpController();
+        this.callback = callback;
+        this.socket = Socket.getInstanse("https://raspi-info-bot.herokuapp.com/");
+    }
+
+    private Emitter.Listener ChangePressure = args -> {
+
+    };
 
     private void append(Bmp180_Data data, Boolean result) {
         System.out.println(String.format("Result: %s", result.toString()));

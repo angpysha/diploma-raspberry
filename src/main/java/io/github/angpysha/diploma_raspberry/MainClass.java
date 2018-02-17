@@ -6,6 +6,7 @@ import io.github.angpysha.diploma_raspberry.BackgroundTasks.BMPRunner;
 import io.github.angpysha.diploma_raspberry.BackgroundTasks.DHTRunner;
 import io.github.angpysha.diploma_raspberry.BackgroundTasks.IBMPCallback;
 import io.github.angpysha.diploma_raspberry.BackgroundTasks.IDHTCallback;
+import io.github.angpysha.diploma_raspberry.Socket.Socket;
 
 import java.text.SimpleDateFormat;
 
@@ -27,6 +28,7 @@ public class MainClass implements IDHTCallback,IBMPCallback{
 
     public void start() {
        // BMP180 bmp180 = new BMP180();
+        Socket socket = Socket.getInstanse("https://raspi-info-bot.herokuapp.com/");
         DHTRunner dhtRunner = new DHTRunner(3600,this);
         BMPRunner bmpRunner = new BMPRunner(3605,this);
         while (true){

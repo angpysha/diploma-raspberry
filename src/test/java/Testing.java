@@ -1,3 +1,5 @@
+import io.github.angpysha.diploma_raspberry.Socket.Socket;
+import io.socket.client.IO;
 import org.junit.Test;
 
 public class Testing {
@@ -19,5 +21,14 @@ public class Testing {
 //        Assert.assertTrue(da[1]>0);
 //    }
 
+    @Test
+    public void TestSocket() {
+        Socket socket = Socket.getInstanse("https://raspi-info-bot.herokuapp.com/");
+
+
+//        while(true) {
+//
+//        }
+    }
 
 }

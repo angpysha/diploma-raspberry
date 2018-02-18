@@ -35,8 +35,8 @@ public class Socket {
     private Socket(String url) {
         try {
             socketio = IO.socket(url);
-            if (!socketio.connected())
-                socketio.connect();
+//            if (!socketio.connected())
+//                socketio.connect();
             socketio.on(io.socket.client.Socket.EVENT_CONNECT, OnConnect);
             socketio.on("update", UpdateData);
         } catch (URISyntaxException e) {

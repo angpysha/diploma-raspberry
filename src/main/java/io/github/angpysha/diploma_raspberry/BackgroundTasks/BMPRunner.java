@@ -6,6 +6,8 @@ import io.github.angpysha.diploma_raspberry.DelayRun.BmpDelayRunner;
 import io.github.angpysha.diploma_raspberry.Sensors.BMP180;
 import com.google.gson.reflect.TypeToken;
 import io.github.angpysha.diploma_raspberry.Socket.Socket;
+import io.github.angpysha.diploma_raspberry.SocketActions.IPressureBase;
+import io.github.angpysha.diploma_raspberry.SocketActions.PressureNoAction;
 import io.socket.emitter.Emitter;
 
 import java.util.List;
@@ -21,6 +23,7 @@ public class BMPRunner implements IEntityRunner<BmpController> {
     private BmpController bmpController;
     private BmpDelayRunner delayRunner;
     private Socket socket;
+    private IPressureBase pressureAction = new PressureNoAction();
 
     public int getInterval() {
         return interval;
@@ -81,7 +84,6 @@ public class BMPRunner implements IEntityRunner<BmpController> {
         }
         this.TimerRunner();
         this.delayRunner = BmpDelayRunner.getInstance(60 * 15);
-
     }
 
     public BMPRunner(IBMPCallback callback) {
@@ -91,7 +93,7 @@ public class BMPRunner implements IEntityRunner<BmpController> {
     }
 
     private Emitter.Listener ChangePressure = args -> {
-
+        pressureAction.ChangeState();
     };
 
     private void append(Bmp180_Data data, Boolean result) {
@@ -102,5 +104,13 @@ public class BMPRunner implements IEntityRunner<BmpController> {
             if (!delayRunner.getRunning())
                 delayRunner.execute();
         }
+    }
+
+    public IPressureBase getPressureAction() {
+        return pressureAction;
+    }
+
+    public void setPressureAction(IPressureBase pressureAction) {
+        this.pressureAction = pressureAction;
     }
 }

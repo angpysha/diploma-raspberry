@@ -1,4 +1,4 @@
-version '0.4'
+version '0.5'
 
 apply plugin: 'java'
 
@@ -7,7 +7,9 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
 }
-
+wrapper {
+    gradleVersion = '4.6'
+}
 sourceSets {
     main {
          // jni.srcDirs = ['']
@@ -38,8 +40,10 @@ dependencies {
     compile ('io.socket:socket.io-client:1.0.0') {
         // excluding org.json which is provided by Android
         exclude group: 'org.json', module: 'json'
-    }
-   // compile files('D:\\IdeaProjects\\com.andrewpetrowski.diploma.bridgelib\\build\\libs\\com.andrewpetrowski.diploma.bridgelib-0.3.jar')
+    }// https://mvnrepository.com/artifact/org.ini4j/ini4j
+    compile group: 'org.ini4j', name: 'ini4j', version: '0.5.4'
+
+    // compile files('D:\\IdeaProjects\\com.andrewpetrowski.diploma.bridgelib\\build\\libs\\com.andrewpetrowski.diploma.bridgelib-0.3.jar')
    // compile files('D:\\IdeaProjects\\com.andrewpetrowski.diploma.raspberry\\src\\main\\jni\\libdhtdata.so')
    // runtime files()
    // compile files('/media/andrey/946A7DDB6A7DBA96/IdeaProjects/com.andrewpetrowski.diploma.bridgelib/build/libs/com.andrewpetrowski.diploma.bridgelib-0.1.jar')

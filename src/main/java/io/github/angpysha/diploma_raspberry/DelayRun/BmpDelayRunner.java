@@ -3,6 +3,7 @@ package io.github.angpysha.diploma_raspberry.DelayRun;
 import io.github.angpysha.diploma_bridge.Controllers.BmpController;
 import io.github.angpysha.diploma_bridge.Models.Bmp180_Data;
 import com.google.gson.reflect.TypeToken;
+import io.github.angpysha.diploma_raspberry.AppConfig;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -34,7 +35,8 @@ public class BmpDelayRunner extends DelayRunner<Bmp180_Data> implements IDelayRu
     public Boolean Send() {
         try {
             BmpController controller = new BmpController();
-
+            AppConfig config = AppConfig.getInstanse("appconfig.ini");
+            controller.setBaseUrl(config.getapiUrl());
             Boolean result = controller.AddAsync(data).get();
 
             if (result) {

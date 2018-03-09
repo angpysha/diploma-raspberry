@@ -4,6 +4,7 @@ package io.github.angpysha.diploma_raspberry.DelayRun;
 import com.google.gson.reflect.TypeToken;
 import io.github.angpysha.diploma_bridge.Controllers.DhtController;
 import io.github.angpysha.diploma_bridge.Models.DHT11_Data;
+import io.github.angpysha.diploma_raspberry.AppConfig;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -39,6 +40,8 @@ public class DhtDelayRunner extends DelayRunner<DHT11_Data> implements IDelayRun
     public Boolean Send() {
         try {
             DhtController controller = new DhtController();
+            AppConfig config = AppConfig.getInstanse("appconfig.ini");
+            controller.setBaseUrl(config.getapiUrl());
             Boolean  result;
 //            if (this.data.size() < 5) {
 //                result = false;

@@ -2,6 +2,7 @@ package io.github.angpysha.diploma_raspberry.BackgroundTasks;
 
 import io.github.angpysha.diploma_bridge.Controllers.DhtController;
 import io.github.angpysha.diploma_bridge.Models.DHT11_Data;
+import io.github.angpysha.diploma_raspberry.AppConfig;
 import io.github.angpysha.diploma_raspberry.DelayRun.DhtDelayRunner;
 import io.github.angpysha.diploma_raspberry.Sensors.DHT11;
 import com.google.gson.reflect.TypeToken;
@@ -72,7 +73,7 @@ public class DHTRunner implements IEntityRunner<DhtController> {
             append(sensorData,result);
            //    e.printStackTrace();
         } catch (ExecutionException e) {
-           // result=false;
+            result=false;
             append(sensorData,result);
           //    e.printStackTrace();
         } catch (Exception ex)
@@ -106,7 +107,9 @@ public class DHTRunner implements IEntityRunner<DhtController> {
      * @param idhtCallback Class, which implement interface (always this)
      */
     public DHTRunner(int time, IDHTCallback idhtCallback) {
+        AppConfig config = AppConfig.getInstanse("appconfig.ini");
         dhtController = new DhtController();
+        dhtController.setBaseUrl(config.getapiUrl());
         callback = idhtCallback;
         this.interval = time;
         this.TimerRunner();
@@ -140,7 +143,10 @@ public class DHTRunner implements IEntityRunner<DhtController> {
     public DHTRunner(IDHTCallback callback) {
         this.socket = Socket.getInstanse("https://raspi-info-bot.herokuapp.com/");
         dhtController = new DhtController();
+        AppConfig config = AppConfig.getInstanse("appconfig.ini");
+        dhtController.setBaseUrl(config.getapiUrl());
         this.callback = callback;
+        delayRunner = DhtDelayRunner.getInstance(60*15);
     }
 
 
@@ -154,7 +160,12 @@ public class DHTRunner implements IEntityRunner<DhtController> {
         if (!result){
             delayRunner.AppendNew(data,(new TypeToken<List<DHT11_Data>>(){}).getType());
             if (!delayRunner.getRunning())
-                delayRunner.execute();
+                try {
+                    delayRunner.execute();
+                } catch (Exception ex)
+                {
+
+                }
         }
     }
 }

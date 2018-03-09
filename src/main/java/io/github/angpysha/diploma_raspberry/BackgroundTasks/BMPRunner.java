@@ -2,6 +2,7 @@ package io.github.angpysha.diploma_raspberry.BackgroundTasks;
 
 import io.github.angpysha.diploma_bridge.Controllers.BmpController;
 import io.github.angpysha.diploma_bridge.Models.Bmp180_Data;
+import io.github.angpysha.diploma_raspberry.AppConfig;
 import io.github.angpysha.diploma_raspberry.DelayRun.BmpDelayRunner;
 import io.github.angpysha.diploma_raspberry.Sensors.BMP180;
 import com.google.gson.reflect.TypeToken;
@@ -11,10 +12,7 @@ import io.github.angpysha.diploma_raspberry.SocketActions.PressureNoAction;
 import io.socket.emitter.Emitter;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 public class BMPRunner implements IEntityRunner<BmpController> {
 
@@ -50,7 +48,7 @@ public class BMPRunner implements IEntityRunner<BmpController> {
 //            e.printStackTrace();
             append(bmp180_data, result);
         } catch (ExecutionException e) {
-            result = false;
+          //  result = false;
 //            e.printStackTrace();
             append(bmp180_data, result);
         }
@@ -59,6 +57,8 @@ public class BMPRunner implements IEntityRunner<BmpController> {
 
     }
 
+
+
     @Override
     public void TimerRunner() {
         ses.scheduleAtFixedRate(this::Run,
@@ -66,7 +66,9 @@ public class BMPRunner implements IEntityRunner<BmpController> {
     }
 
     public BMPRunner(int time, IBMPCallback callback) {
+        AppConfig config = AppConfig.getInstanse("appconfig.ini");
         bmpController = new BmpController();
+        bmpController.setBaseUrl(config.getapiUrl());
         this.callback = callback;
         this.interval = time;
         this.TimerRunner();
@@ -87,9 +89,12 @@ public class BMPRunner implements IEntityRunner<BmpController> {
     }
 
     public BMPRunner(IBMPCallback callback) {
+        AppConfig config = AppConfig.getInstanse("appconfig.ini");
         bmpController = new BmpController();
+        bmpController.setBaseUrl(config.getapiUrl());
         this.callback = callback;
         this.socket = Socket.getInstanse("https://raspi-info-bot.herokuapp.com/");
+        this.delayRunner = BmpDelayRunner.getInstance(60 * 15);
     }
 
     private Emitter.Listener ChangePressure = args -> {
@@ -102,7 +107,12 @@ public class BMPRunner implements IEntityRunner<BmpController> {
             delayRunner.AppendNew(data, (new TypeToken<List<Bmp180_Data>>() {
             }).getType());
             if (!delayRunner.getRunning())
-                delayRunner.execute();
+                try {
+                    delayRunner.execute();
+                } catch (Exception ex)
+                {
+
+                }
         }
     }
 

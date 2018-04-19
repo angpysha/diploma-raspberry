@@ -4,6 +4,7 @@ package io.github.angpysha.diploma_raspberry.DelayRun;
 import com.google.gson.reflect.TypeToken;
 import io.github.angpysha.diploma_bridge.Controllers.DhtController;
 import io.github.angpysha.diploma_bridge.Models.DHT11_Data;
+import io.github.angpysha.diploma_bridge.Models.DhtSearch;
 import io.github.angpysha.diploma_raspberry.AppConfig;
 
 import java.util.List;
@@ -46,6 +47,12 @@ public class DhtDelayRunner extends DelayRunner<DHT11_Data> implements IDelayRun
 //            if (this.data.size() < 5) {
 //                result = false;
 //            } else {
+
+            for (DHT11_Data el:data) {
+                if (controller.GetCount(el,DHT11_Data.class, DhtSearch.class) > 0) {
+                    data.remove(el);
+                }
+            }
                 result = controller.AddAsync(data).get();
 //            }
 
@@ -63,6 +70,9 @@ public class DhtDelayRunner extends DelayRunner<DHT11_Data> implements IDelayRun
         } catch (ExecutionException e) {
 //            e.printStackTrace();
             return false;
+        } catch (NoSuchMethodException e) {
+       //     e.printStackTrace();
+            return true;
         }
     }
 

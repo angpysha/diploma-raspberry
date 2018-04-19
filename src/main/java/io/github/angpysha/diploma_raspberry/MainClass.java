@@ -32,7 +32,7 @@ public class MainClass implements IDHTCallback,IBMPCallback{
         Socket socket = Socket.getInstanse(appConfig.getSocketUrl());
         socket.socketio.connect();
         DHTRunner dhtRunner = new DHTRunner(3600,this);
-        BMPRunner bmpRunner = new BMPRunner(3605,this);
+        BMPRunner bmpRunner = new BMPRunner(3600,this);
         while (true){
          //   bmp180.Testing();
         }

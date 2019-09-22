@@ -2,10 +2,8 @@ package io.github.angpysha.diploma_raspberry;
 
 import io.github.angpysha.diploma_bridge.Models.Bmp180_Data;
 import io.github.angpysha.diploma_bridge.Models.DHT11_Data;
-import io.github.angpysha.diploma_raspberry.BackgroundTasks.BMPRunner;
-import io.github.angpysha.diploma_raspberry.BackgroundTasks.DHTRunner;
-import io.github.angpysha.diploma_raspberry.BackgroundTasks.IBMPCallback;
-import io.github.angpysha.diploma_raspberry.BackgroundTasks.IDHTCallback;
+import io.github.angpysha.diploma_raspberry.BackgroundTasks.*;
+import io.github.angpysha.diploma_raspberry.Sensors.Sensor;
 import io.github.angpysha.diploma_raspberry.Socket.Socket;
 
 import java.io.Console;
@@ -16,6 +14,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Main class for program
@@ -42,15 +42,15 @@ public class MainClass implements IDHTCallback,IBMPCallback{
 //        BMPRunner bmpRunner = new BMPRunner(3600,this);
         File libsDir = new File("./libs");
         File[] files = libsDir.listFiles();
-
-        for (File file1:files) {
-            String ext = getFileExtension(file1);
-            if (ext.contains("so")) {
-                String filename = file1.getAbsolutePath();
-                System.out.println("Load nativelib: " +filename);
-              //  System.load(filename);
-            }
-        }
+        List<Sensor> sensors = new ArrayList<>();
+//        for (File file1:files) {
+//            String ext = getFileExtension(file1);
+//            if (ext.contains("so")) {
+//                String filename = file1.getAbsolutePath();
+//                System.out.println("Load nativelib: " +filename);
+//              //  System.load(filename);
+//            }
+//        }
 
         for (File file:files) {
            // System.out.println(file.getName());
@@ -69,9 +69,10 @@ public class MainClass implements IDHTCallback,IBMPCallback{
                     System.out.println(clazz.toString());
                     Method method = clazz.getDeclaredMethod("DoOperation");
                     Object instanse = clazz.newInstance();
-                    Object meth = method.invoke(instanse);
-                    String str = (String)meth;
-                    System.out.println(str);
+                    sensors.add(new Sensor(method,instanse));
+//                    Object meth = method.invoke(instanse);
+//                    String str = (String)meth;
+//                    System.out.println(str);
                     //System.out.println(meth.hashCode());
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
@@ -83,8 +84,6 @@ public class MainClass implements IDHTCallback,IBMPCallback{
                     e.printStackTrace();
                 } catch (InstantiationException e) {
                     e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
                 }
             }
 //            } else if (ext.contains("so")) {
@@ -92,6 +91,8 @@ public class MainClass implements IDHTCallback,IBMPCallback{
 //                System.load(filename);
 //            }
         }
+
+        SensorRunner sensorRunner = new SensorRunner(3600,sensors);
         while (true){
          //   bmp180.Testing();
         }

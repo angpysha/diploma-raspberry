@@ -1,5 +1,7 @@
 import io.github.angpysha.diploma_raspberry.Socket.Socket;
+import io.github.angpysha.diploma_raspberry.TestObj;
 import io.socket.client.IO;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class Testing {
@@ -29,6 +31,13 @@ public class Testing {
 //        while(true) {
 //
 //        }
+    }
+
+    @Test
+    public void TestScala1() {
+        TestObj testObj = new TestObj();
+        int tt = testObj.tset(3);
+        Assert.assertEquals(tt,27);
     }
 
 }

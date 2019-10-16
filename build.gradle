@@ -1,6 +1,7 @@
 version '0.5.1'
 
 apply plugin: 'java'
+apply plugin: 'scala'
 sourceCompatibility = 1.8
 
 repositories {
@@ -11,6 +12,12 @@ wrapper {
 }
 sourceSets {
     main {
+        scala {
+            srcDirs = ['src/main/scala', 'src/main/java']
+        }
+        java {
+            srcDirs = []
+        }
          // jni.srcDirs = ['']
         // jniLibs.srcDirs = ['libs']
     }
@@ -41,6 +48,7 @@ jar {
 }
 
 dependencies {
+    compile 'org.scala-lang:scala-library:2.12.8' 
     compile fileTree(dir: 'libs',include: ['**/*.jar'])
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'

@@ -40,6 +40,7 @@ public class MainClass implements IDHTCallback,IBMPCallback{
 //        socket.socketio.connect();
 //        DHTRunner dhtRunner = new DHTRunner(3600,this);
 //        BMPRunner bmpRunner = new BMPRunner(3600,this);
+        TestObj obj;
         File libsDir = new File("./libs");
         File[] files = libsDir.listFiles();
         List<Sensor> sensors = new ArrayList<>();
@@ -70,6 +71,7 @@ public class MainClass implements IDHTCallback,IBMPCallback{
                     Method method = clazz.getDeclaredMethod("DoOperation");
                     Object instanse = clazz.newInstance();
                     sensors.add(new Sensor(method,instanse));
+
 //                    Object meth = method.invoke(instanse);
 //                    String str = (String)meth;
 //                    System.out.println(str);
